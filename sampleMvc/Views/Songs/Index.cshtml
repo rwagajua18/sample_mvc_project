@@ -1,0 +1,85 @@
+@model IEnumerable<sampleMvc.Models.Song>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<style>
+#songs {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#songs td, #songs th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#songs tr:nth-child(even){background-color: #f2f2f2;}
+
+#songs tr:hover {background-color: #ddd;}
+
+#songs th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #4CAF50;
+  color: white;
+}
+</style>
+<h1>List of Songs</h1>
+
+<p>
+    <a asp-action="Create">Add a new song</a>
+</p>
+<form asp-controller="Songs" asp-action="Index" method="get">
+    <p>
+        Title: <input type="text" name="search">
+        <input type="submit" value="Filter" />
+    </p>
+
+</form>
+<table id="songs">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            
+            <th>
+                @Html.DisplayNameFor(model => model.Genre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ArtistName)
+            </th>
+            
+            <th>
+                Other Options
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.Genre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ArtistName)
+            </td>
+            
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
